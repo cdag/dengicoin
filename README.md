@@ -28,7 +28,7 @@ To install Dengicoin, follow these steps:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/dengicoin.git
+    git clone https://github.com/cdag/dengicoin.git
     ```
 
 2. Navigate to the project directory:
