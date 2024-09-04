@@ -5,12 +5,6 @@ Inspiration for this project came from [This Medium Article](https://medium.com/
 
 This project uses [Maven](https://maven.apache.org/) for build automation and dependency management.
 
-## Table of Contents
-
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running Tests](#running-tests)
-
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
