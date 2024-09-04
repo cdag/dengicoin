@@ -47,7 +47,7 @@ To install Dengicoin, follow these steps:
 This project uses the Maven Surefire Plugin for running tests. To execute the tests, run:
 
 ```bash
-mvn surefire:test
+mvn test
 ```
 
 ## Code Style
