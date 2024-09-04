@@ -17,8 +17,12 @@ public class DengiCoinChain {
 
         /**
          * The main method is the entry point of the application. It performs the following steps:
-         * 1. Initializes wallets. 2. Creates transactions. 3. Signs transactions. 4. Groups
-         * transactions into lists. 5. Adds blocks to the blockchain. 6. Validates the blockchain.
+         * 1. Initializes wallets. 
+         * 2. Creates transactions. 
+         * 3. Signs transactions. 
+         * 4. Groups transactions into lists. 
+         * 5. Adds blocks to the blockchain. 
+         * 6. Validates the blockchain.
          * 7. Prints the blockchain.
          *
          * @param args Command line arguments.
