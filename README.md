@@ -8,7 +8,6 @@ Inspiration for this project came from [This Medium Article](https://medium.com/
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Running Tests](#running-tests)
 - [Code Style](#code-style)
 - [Contributing](#contributing)
@@ -42,14 +41,6 @@ To install Dengicoin, follow these steps:
     ```bash
     mvn clean install
     ```
-
-## Usage
-
-To run the project, use the following command:
-
-```bash
-mvn exec:java -Dexec.mainClass="com.youngops.DengiCoinChain"
-```
 
 ## Running Tests
 
