@@ -24,13 +24,14 @@ public class Block {
    * @param transactions the list of transactions
    * @param previousHash the hash of the previous block
    */
-  public Block(List<Transaction> transactions, String previousHash) {
-    this.index = 0; // Set if needed
+  public Block(int index, List<Transaction> transactions, String previousHash) {
+    this.index = index; // Use the provided index
     this.timestamp = System.currentTimeMillis();
     this.transactions = transactions;
     this.previousHash = previousHash;
     this.hash = calculateHash();
-  }
+}
+
 
   /**
    * Calculates the hash of the block.

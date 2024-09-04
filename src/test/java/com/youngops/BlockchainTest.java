@@ -55,7 +55,8 @@ class BlockchainTest {
     Transaction tx = new Transaction("Alice", "Bob", 50, sender.getPublicKey());
     tx.signTransaction(sender.getPrivateKey());
     transactions.add(tx);
-    Block newBlock = new Block(transactions,
+    int previousIndex = blockchain.getChain().get(blockchain.getChain().size() - 1).getIndex();
+    Block newBlock = new Block(previousIndex + 1, transactions,
         blockchain.getChain().get(blockchain.getChain().size() - 1).getHash());
     blockchain.addBlock(newBlock);
     assertEquals(initialSize + 1, blockchain.getChain().size(),

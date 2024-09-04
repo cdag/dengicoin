@@ -51,22 +51,34 @@ public class DengiCoinChain {
       transactions4.add(transaction4);
       logger.info("Grouped transactions into lists.");
       Blockchain blockchainInstance = Blockchain.getInstance();
-      Block block1 = new Block(transactions1,
+      int previousIndex = blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getIndex();
+      
+      Block block1 = new Block(previousIndex + 1, transactions1,
           blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
       blockchainInstance.addBlock(block1);
       logger.info("Added Block 1.");
-      Block block2 = new Block(transactions2,
+      
+      previousIndex = block1.getIndex();
+      
+      Block block2 = new Block(previousIndex + 1, transactions2,
           blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
       blockchainInstance.addBlock(block2);
       logger.info("Added Block 2.");
-      Block block3 = new Block(transactions3,
+      
+      previousIndex = block2.getIndex();
+      
+      Block block3 = new Block(previousIndex + 1, transactions3,
           blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
       blockchainInstance.addBlock(block3);
       logger.info("Added Block 3.");
-      Block block4 = new Block(transactions4,
+      
+      previousIndex = block3.getIndex();
+      
+      Block block4 = new Block(previousIndex + 1, transactions4,
           blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
       blockchainInstance.addBlock(block4);
       logger.info("Added Block 4.");
+      
       boolean isValid = Blockchain.isChainValid();
       logger.info("Blockchain is Valid: {}", isValid);
       System.out.println("\nBlockchain is Valid: " + isValid);
