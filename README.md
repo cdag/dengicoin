@@ -34,7 +34,7 @@ To install Dengicoin, follow these steps:
 2. Navigate to the project directory:
 
     ```bash
-    cd dengicoin
+    cd path/to/dengicoin
     ```
 
 3. Build the project using Maven:
@@ -48,10 +48,8 @@ To install Dengicoin, follow these steps:
 To run the project, use the following command:
 
 ```bash
-mvn exec:java -Dexec.mainClass="com.yourpackage.MainClass"
+mvn exec:java -Dexec.mainClass="com.youngops.DengiCoinChain"
 ```
-
-Replace `com.yourpackage.MainClass` with the actual main class of your project.
 
 ## Running Tests
 
@@ -69,7 +67,7 @@ This project uses the Maven Checkstyle Plugin to ensure code quality. To generat
 mvn checkstyle:checkstyle
 ```
 
-The report will be generated in the `target/site` directory.
+The report will be generated in the `target` directory.
 
 ## Contributing
 
