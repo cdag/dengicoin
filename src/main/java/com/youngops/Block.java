@@ -68,7 +68,7 @@ public class Block {
     logger.info("Block mined: {}", hash);
   }
 
-  // Getters and Setters
+  // Getters
   public int getIndex() {
     return index;
   }
