@@ -10,8 +10,6 @@ This project uses [Maven](https://maven.apache.org/) for build automation and de
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Running Tests](#running-tests)
-- [Code Style](#code-style)
-- [License](#license)
 
 ## Prerequisites
 
@@ -48,14 +46,6 @@ This project uses the Maven Surefire Plugin for running tests. To execute the te
 
 ```bash
 mvn test
-```
-
-## Code Style
-
-This project uses the Maven Checkstyle Plugin to ensure code quality. To generate a Checkstyle report, run:
-
-```bash
-mvn checkstyle:checkstyle
 ```
 
 The report will be generated in the `target` directory.
