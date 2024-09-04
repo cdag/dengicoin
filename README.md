@@ -1,8 +1,9 @@
 # Dengicoin
 
 Dengicoin is a Java-based blockchain that I made for a mock cryptocurrency in order to learn the technology. The name comes from the russian word for money (Деньги).
-Inspiration for this project came from [This Medium Article](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa). This is currently a work in progress and not ready for implementation.
- This project uses [Maven](https://maven.apache.org/) for build automation and dependency management.
+Inspiration for this project came from [This Medium Article](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa). The main difference being it uses [EdDSA](https://datatracker.ietf.org/doc/html/rfc8032) instead of [ECDSA](https://www.rfc-editor.org/rfc/rfc6979.html). This is currently a work in progress and not ready for implementation.
+
+This project uses [Maven](https://maven.apache.org/) for build automation and dependency management.
 
 ## Table of Contents
 
