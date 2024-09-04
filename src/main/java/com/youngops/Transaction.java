@@ -7,9 +7,15 @@ import java.security.spec.X509EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
+/**
+ * Represents a transaction in a blockchain system.
+ */
 public class Transaction {
     private static final Logger logger = LoggerFactory.getLogger(Transaction.class);
 
+    /**
+     * The algorithm used for signing transactions.
+     */
     public static final String SIGNING_ALGORITHM = "Ed25519";
 
     private String sender;
@@ -18,6 +24,15 @@ public class Transaction {
     private String senderPublicKey;
     private String signature;
 
+    /**
+     * Constructs a new Transaction.
+     *
+     * @param sender the sender's identifier
+     * @param recipient the recipient's identifier
+     * @param amount the amount to be transferred
+     * @param senderPublicKey the sender's public key
+     * @throws IllegalArgumentException if senderPublicKey is null for non-genesis transactions
+     */
     public Transaction(String sender, String recipient, int amount, PublicKey senderPublicKey) {
         if (sender.equals("Genesis") && recipient.equals("System")) {
             this.sender = sender;
@@ -36,6 +51,12 @@ public class Transaction {
         this.senderPublicKey = Base64.getEncoder().encodeToString(senderPublicKey.getEncoded());
     }
 
+    /**
+     * Signs the transaction using the provided private key.
+     *
+     * @param privateKey the private key used to sign the transaction
+     * @throws RuntimeException if signing fails
+     */
     public void signTransaction(PrivateKey privateKey) {
         String data = sender + recipient + amount;
         try {
@@ -52,6 +73,12 @@ public class Transaction {
         }
     }
 
+    /**
+     * Verifies the signature of the transaction.
+     *
+     * @return true if the signature is valid, false otherwise
+     * @throws RuntimeException if verification fails
+     */
     public boolean verifySignature() {
         String data = sender + recipient + amount;
         try {
@@ -75,25 +102,48 @@ public class Transaction {
         }
     }
 
-    // Getters for accessing the transaction details
+    /**
+     * Gets the sender's identifier.
+     *
+     * @return the sender's identifier
+     */
     public String getSender() {
         return sender;
     }
 
+    /**
+     * Gets the recipient's identifier.
+     *
+     * @return the recipient's identifier
+     */
     public String getRecipient() {
         return recipient;
     }
 
+    /**
+     * Gets the amount to be transferred.
+     *
+     * @return the amount to be transferred
+     */
     public int getAmount() {
         return amount;
     }
 
+    /**
+     * Gets the sender's public key.
+     *
+     * @return the sender's public key
+     */
     public String getSenderPublicKey() {
         return senderPublicKey;
     }
 
+    /**
+     * Gets the transaction's signature.
+     *
+     * @return the transaction's signature
+     */
     public String getSignature() {
         return signature;
     }
-
 }

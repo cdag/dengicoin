@@ -10,7 +10,6 @@ Inspiration for this project came from [This Medium Article](https://medium.com/
 - [Installation](#installation)
 - [Running Tests](#running-tests)
 - [Code Style](#code-style)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Prerequisites
@@ -59,33 +58,6 @@ mvn checkstyle:checkstyle
 ```
 
 The report will be generated in the `target` directory.
-
-## Contributing
-
-To contribute to Dengicoin, follow these steps:
-
-1. Fork this repository.
-2. Create a branch:
-
-    ```bash
-    git checkout -b <branch_name>
-    ```
-
-3. Make your changes and commit them:
-
-    ```bash
-    git commit -m '<commit_message>'
-    ```
-
-4. Push to the original branch:
-
-    ```bash
-    git push origin <project_name>/<location>
-    ```
-
-5. Create the pull request.
-
-Alternatively, see the GitHub documentation on [creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
 
 ## License
 

@@ -93,6 +93,12 @@ public class Block {
         return nonce;
     }
 
+    /**
+     * Returns a string representation of the Block object. The string includes the block index,
+     * timestamp, previous hash, current hash, nonce, and all transactions.
+     *
+     * @return A string representation of the Block object.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -109,4 +115,5 @@ public class Block {
         sb.append("]");
         return sb.toString();
     }
+
 }

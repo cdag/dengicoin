@@ -3,8 +3,15 @@ package com.youngops;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for the Wallet class.
+ */
 class WalletTest {
 
+    /**
+     * Tests the key pair generation in the Wallet class. Ensures that both private and public keys
+     * are generated and are not null.
+     */
     @Test
     void testKeyPairGeneration() {
         Wallet wallet = new Wallet();
@@ -12,6 +19,10 @@ class WalletTest {
         assertNotNull(wallet.getPublicKey(), "Public key should not be null.");
     }
 
+    /**
+     * Tests the public key string generation in the Wallet class. Ensures that the public key
+     * string is not null and not empty.
+     */
     @Test
     void testPublicKeyString() {
         Wallet wallet = new Wallet();

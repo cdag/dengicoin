@@ -6,12 +6,20 @@ import org.slf4j.LoggerFactory;
 import java.security.*;
 import java.util.Base64;
 
+/**
+ * The Wallet class represents a digital wallet that holds a private and public key pair. It
+ * provides functionality for managing and accessing these keys.
+ */
 public class Wallet {
     private static final Logger logger = LoggerFactory.getLogger(Wallet.class);
 
     private PrivateKey privateKey;
     private PublicKey publicKey;
 
+    /**
+     * Constructor for Wallet. Initializes the BouncyCastle security provider if not already present
+     * and generates a key pair.
+     */
     public Wallet() {
         if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
             Security.addProvider(new BouncyCastleProvider());
@@ -21,6 +29,10 @@ public class Wallet {
                 "Wallet created with PublicKey: " + (publicKey != null ? publicKey : "NULL"));
     }
 
+    /**
+     * Generates a new key pair using the Ed25519 algorithm and BouncyCastle provider. Sets the
+     * privateKey and publicKey fields with the generated key pair.
+     */
     private void generateKeyPair() {
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("Ed25519", "BC");
@@ -37,6 +49,11 @@ public class Wallet {
         }
     }
 
+    /**
+     * Returns the public key of the wallet. Logs an error if the public key is null.
+     *
+     * @return the public key
+     */
     public PublicKey getPublicKey() {
         if (publicKey == null) {
             logger.error("PublicKey is null in Wallet");
@@ -44,10 +61,21 @@ public class Wallet {
         return publicKey;
     }
 
+    /**
+     * Returns the private key of the wallet.
+     *
+     * @return the private key
+     */
     public PrivateKey getPrivateKey() {
         return privateKey;
     }
 
+    /**
+     * Returns the public key as a Base64 encoded string. Logs an error and returns
+     * "NULL_PUBLIC_KEY" if the public key is null.
+     *
+     * @return the public key as a Base64 encoded string
+     */
     public String getPublicKeyString() {
         if (publicKey == null) {
             logger.error("Attempted to get PublicKeyString but publicKey is null");
