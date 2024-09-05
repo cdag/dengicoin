@@ -25,7 +25,7 @@ public class Block {
    * @param previousHash the hash of the previous block
    */
   public Block(int index, List<Transaction> transactions, String previousHash) {
-    this.index = index; // Use the provided index
+    this.index = index;
     this.timestamp = System.currentTimeMillis();
     this.transactions = transactions;
     this.previousHash = previousHash;
