@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.nio.ByteBuffer;
+import java.security.SecureRandom;
 
 /**
  * Represents a block in the blockchain.
@@ -16,7 +18,8 @@ public class Block {
   private List<Transaction> transactions;
   private String previousHash;
   private String hash;
-  private int nonce;
+  private static final SecureRandom secureRandom = new SecureRandom();
+  private long nonce;
 
   /**
    * Constructs a new Block.
@@ -29,9 +32,22 @@ public class Block {
     this.timestamp = System.currentTimeMillis();
     this.transactions = transactions;
     this.previousHash = previousHash;
+    this.nonce = generateSecureNonce();
     this.hash = calculateHash();
-}
+  }
 
+  /**
+   * Generates a secure nonce using a cryptographically strong random number generator. The nonce is
+   * an 8-byte long value that is wrapped in a ByteBuffer and converted to a long. The absolute
+   * value of the generated long is returned to ensure a positive nonce.
+   *
+   * @return A positive long value representing the secure nonce.
+   */
+  private long generateSecureNonce() {
+    byte[] nonceBytes = new byte[8];
+    secureRandom.nextBytes(nonceBytes);
+    return Math.abs(ByteBuffer.wrap(nonceBytes).getLong());
+  }
 
   /**
    * Calculates the hash of the block.
@@ -63,35 +79,71 @@ public class Block {
     String target = new String(new char[difficulty]).replace('\0', '0');
     logger.info("Mining block with difficulty: {}", difficulty);
     while (!hash.substring(0, difficulty).equals(target)) {
-      nonce++;
+      if (nonce == Long.MAX_VALUE) {
+        // Reset nonce
+        nonce = generateSecureNonce();
+      } else {
+        nonce++;
+      }
       hash = calculateHash();
     }
     logger.info("Block mined: {}", hash);
   }
 
   // Getters
+
+  /**
+   * Getter method so the nonce is available outside of this class.
+   * 
+   * @return
+   */
+  public long getNonce() {
+    return nonce;
+  }
+
+  /**
+   * Returns the index of the block.
+   *
+   * @return the index of the block
+   */
   public int getIndex() {
     return index;
   }
 
+  /**
+   * Returns the timestamp of the block.
+   *
+   * @return
+   */
   public long getTimestamp() {
     return timestamp;
   }
 
+  /**
+   * Returns the list of transactions in the block.
+   *
+   * @return
+   */
   public List<Transaction> getTransactions() {
     return transactions;
   }
 
+  /**
+   * Returns the hash of the previous block.
+   *
+   * @return
+   */
   public String getPreviousHash() {
     return previousHash;
   }
 
+  /**
+   * Returns the hash of the current block.
+   *
+   * @return the hash of the current block
+   */
   public String getHash() {
     return hash;
-  }
-
-  public int getNonce() {
-    return nonce;
   }
 
   /**
