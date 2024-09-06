@@ -16,7 +16,6 @@ public class Blockchain {
 
   private List<Block> chain;
 
-  // Singleton pattern
   private static Blockchain instance = null;
 
   /**
@@ -26,7 +25,7 @@ public class Blockchain {
     this.chain = new ArrayList<>();
     List<Transaction> genesisTransactions = new ArrayList<>();
     genesisTransactions.add(new Transaction("Genesis", "System", 0, null));
-    Block genesisBlock = new Block(0, genesisTransactions, "0"); // Pass the index as 0 for the genesis block
+    Block genesisBlock = new Block(0, genesisTransactions, "0");
     genesisBlock.mineBlock(DIFFICULTY);
     this.chain.add(genesisBlock);
     logger.info("Genesis block created.");

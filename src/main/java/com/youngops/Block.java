@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.youngops.exception.HashCalculationRuntimeException;
 import java.nio.ByteBuffer;
 import java.security.SecureRandom;
 
@@ -65,8 +66,9 @@ public class Block {
       }
       return sb.toString();
     } catch (Exception e) {
-      logger.error("Error calculating hash: {}", e.getMessage());
-      throw new RuntimeException("Failed to calculate hash.", e);
+      String errorMessage = String.format("Failed to calculate hash for block %d with previous hash %s, timestamp %d, and nonce %d", index, previousHash, timestamp, nonce);
+      logger.error(errorMessage, e);
+      throw new HashCalculationRuntimeException(errorMessage, e);
     }
   }
 
