@@ -1,95 +1,90 @@
 package com.youngops;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.List;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import java.security.Security;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- * The DengiCoinChain class represents the main entry point for the DengiCoin blockchain
- * application. It initializes wallets, creates and signs transactions, groups transactions into
- * blocks, adds blocks to the blockchain, and validates the blockchain.
- */
 public class DengiCoinChain {
   private static final Logger logger = LoggerFactory.getLogger(DengiCoinChain.class);
 
-  /**
-   * The main method is the entry point of the application. It performs the following steps: 1.
-   * Initializes wallets. 2. Creates transactions. 3. Signs transactions. 4. Groups transactions
-   * into lists. 5. Adds blocks to the blockchain. 6. Validates the blockchain. 7. Prints the
-   * blockchain.
-   *
-   * @param args Command line arguments.
-   */
   public static void main(String[] args) {
     Security.addProvider(new BouncyCastleProvider());
     try {
-      Wallet wallet1 = new Wallet();
-      Wallet wallet2 = new Wallet();
-      Wallet wallet3 = new Wallet();
-      Wallet wallet4 = new Wallet();
-      logger.info("Initialized wallets.");
-      Transaction transaction1 = new Transaction("Alice", "Bob", 50, wallet1.getPublicKey());
-      Transaction transaction2 = new Transaction("Bob", "Charlie", 30, wallet2.getPublicKey());
-      Transaction transaction3 = new Transaction("Charlie", "Dave", 20, wallet3.getPublicKey());
-      Transaction transaction4 = new Transaction("Dave", "Alice", 10, wallet4.getPublicKey());
-      logger.info("Created transactions.");
-      transaction1.signTransaction(wallet1.getPrivateKey());
-      transaction2.signTransaction(wallet2.getPrivateKey());
-      transaction3.signTransaction(wallet3.getPrivateKey());
-      transaction4.signTransaction(wallet4.getPrivateKey());
-      logger.info("Signed transactions.");
-      List<Transaction> transactions1 = new ArrayList<>();
-      transactions1.add(transaction1);
-      List<Transaction> transactions2 = new ArrayList<>();
-      transactions2.add(transaction2);
-      List<Transaction> transactions3 = new ArrayList<>();
-      transactions3.add(transaction3);
-      List<Transaction> transactions4 = new ArrayList<>();
-      transactions4.add(transaction4);
-      logger.info("Grouped transactions into lists.");
+      List<Wallet> wallets = initializeWallets();
+      List<Transaction> transactions = createTransactions(wallets);
+      signTransactions(transactions, wallets);
+      List<List<Transaction>> groupedTransactions = groupTransactions(transactions);
       Blockchain blockchainInstance = Blockchain.getInstance();
-      int previousIndex = blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getIndex();
-      
-      Block block1 = new Block(previousIndex + 1, transactions1,
-          blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
-      blockchainInstance.addBlock(block1);
-      logger.info("Added Block 1.");
-      
-      previousIndex = block1.getIndex();
-      
-      Block block2 = new Block(previousIndex + 1, transactions2,
-          blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
-      blockchainInstance.addBlock(block2);
-      logger.info("Added Block 2.");
-      
-      previousIndex = block2.getIndex();
-      
-      Block block3 = new Block(previousIndex + 1, transactions3,
-          blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
-      blockchainInstance.addBlock(block3);
-      logger.info("Added Block 3.");
-      
-      previousIndex = block3.getIndex();
-      
-      Block block4 = new Block(previousIndex + 1, transactions4,
-          blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
-      blockchainInstance.addBlock(block4);
-      logger.info("Added Block 4.");
-      
-      boolean isValid = Blockchain.isChainValid();
-      logger.info("Blockchain is Valid: {}", isValid);
-      System.out.println("\nBlockchain is Valid: " + isValid);
-      String blockchainJson = blockchainInstance.toJson();
-      System.out.println("\nThe block chain: ");
-      System.out.println(blockchainJson);
-      logger.info("Printed blockchain JSON.");
-
+      addBlocksToBlockchain(blockchainInstance, groupedTransactions);
+      validateAndPrintBlockchain(blockchainInstance);
     } catch (Exception e) {
       logger.error("An error occurred in DengiCoinChain: {}", e.getMessage());
       e.printStackTrace();
     }
+  }
+
+  private static List<Wallet> initializeWallets() {
+    List<Wallet> wallets = new ArrayList<>();
+    wallets.add(new Wallet());
+    wallets.add(new Wallet());
+    wallets.add(new Wallet());
+    wallets.add(new Wallet());
+    logger.info("Initialized wallets.");
+    return wallets;
+  }
+
+  private static List<Transaction> createTransactions(List<Wallet> wallets) {
+    List<Transaction> transactions = new ArrayList<>();
+    transactions.add(new Transaction("Alice", "Bob", 50, wallets.get(0).getPublicKey()));
+    transactions.add(new Transaction("Bob", "Charlie", 30, wallets.get(1).getPublicKey()));
+    transactions.add(new Transaction("Charlie", "Dave", 20, wallets.get(2).getPublicKey()));
+    transactions.add(new Transaction("Dave", "Alice", 10, wallets.get(3).getPublicKey()));
+    logger.info("Created transactions.");
+    return transactions;
+  }
+
+  private static void signTransactions(List<Transaction> transactions, List<Wallet> wallets) {
+    transactions.get(0).signTransaction(wallets.get(0).getPrivateKey());
+    transactions.get(1).signTransaction(wallets.get(1).getPrivateKey());
+    transactions.get(2).signTransaction(wallets.get(2).getPrivateKey());
+    transactions.get(3).signTransaction(wallets.get(3).getPrivateKey());
+    logger.info("Signed transactions.");
+  }
+
+  private static List<List<Transaction>> groupTransactions(List<Transaction> transactions) {
+    List<List<Transaction>> groupedTransactions = new ArrayList<>();
+    for (Transaction transaction : transactions) {
+      List<Transaction> transactionList = new ArrayList<>();
+      transactionList.add(transaction);
+      groupedTransactions.add(transactionList);
+    }
+    logger.info("Grouped transactions into lists.");
+    return groupedTransactions;
+  }
+
+  private static void addBlocksToBlockchain(Blockchain blockchainInstance,
+      List<List<Transaction>> groupedTransactions) {
+    int previousIndex =
+        blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getIndex();
+    for (List<Transaction> transactionList : groupedTransactions) {
+      Block block = new Block(previousIndex + 1, transactionList,
+          blockchainInstance.getChain().get(blockchainInstance.getChain().size() - 1).getHash());
+      blockchainInstance.addBlock(block);
+      logger.info("Added Block {}.", block.getIndex());
+      previousIndex = block.getIndex();
+    }
+  }
+
+  private static void validateAndPrintBlockchain(Blockchain blockchainInstance) {
+    boolean isValid = Blockchain.isChainValid();
+    logger.info("Blockchain is Valid: {}", isValid);
+    System.out.println("\nBlockchain is Valid: " + isValid);
+    String blockchainJson = blockchainInstance.toJson();
+    System.out.println("\nThe block chain: ");
+    System.out.println(blockchainJson);
+    logger.info("Printed blockchain JSON.");
   }
 }

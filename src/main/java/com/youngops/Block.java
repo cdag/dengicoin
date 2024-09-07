@@ -66,7 +66,9 @@ public class Block {
       }
       return sb.toString();
     } catch (Exception e) {
-      String errorMessage = String.format("Failed to calculate hash for block %d with previous hash %s, timestamp %d, and nonce %d", index, previousHash, timestamp, nonce);
+      String errorMessage = String.format(
+          "Failed to calculate hash for block %d with previous hash %s, timestamp %d, and nonce %d",
+          index, previousHash, timestamp, nonce);
       logger.error(errorMessage, e);
       throw new HashCalculationRuntimeException(errorMessage, e);
     }

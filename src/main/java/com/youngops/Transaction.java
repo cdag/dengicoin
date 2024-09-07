@@ -38,7 +38,7 @@ public class Transaction {
       this.sender = sender;
       this.recipient = recipient;
       this.amount = amount;
-      this.senderPublicKey = null; // Or some other way to indicate it's a genesis transaction
+      this.senderPublicKey = null;
       return;
     }
 

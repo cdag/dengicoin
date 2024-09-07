@@ -29,7 +29,7 @@ public class Blockchain {
     genesisBlock.mineBlock(DIFFICULTY);
     this.chain.add(genesisBlock);
     logger.info("Genesis block created.");
-}
+  }
 
 
   /**
