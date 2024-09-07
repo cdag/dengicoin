@@ -84,7 +84,6 @@ public class Block {
     logger.info("Mining block with difficulty: {}", difficulty);
     while (!hash.substring(0, difficulty).equals(target)) {
       if (nonce == Long.MAX_VALUE) {
-        // Reset nonce
         nonce = generateSecureNonce();
       } else {
         nonce++;
@@ -93,8 +92,6 @@ public class Block {
     }
     logger.info("Block mined: {}", hash);
   }
-
-  // Getters
 
   /**
    * Getter method so the nonce is available outside of this class.
