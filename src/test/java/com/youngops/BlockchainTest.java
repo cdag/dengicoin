@@ -16,7 +16,6 @@ class BlockchainTest {
   @BeforeEach
   void setUp() {
     try {
-      // Reset the blockchain instance before each test
       Field instanceField = Blockchain.class.getDeclaredField("instance");
       instanceField.setAccessible(true);
       instanceField.set(null, null);
@@ -76,7 +75,7 @@ class BlockchainTest {
       Transaction tamperedTransaction = tamperedBlock.getTransactions().get(0);
       Field amountField = tamperedTransaction.getClass().getDeclaredField("amount");
       amountField.setAccessible(true);
-      amountField.set(tamperedTransaction, 100); // Tampering the amount
+      amountField.set(tamperedTransaction, 100);
       assertFalse(Blockchain.isChainValid(), "Blockchain should be invalid after tampering.");
     }
   }
