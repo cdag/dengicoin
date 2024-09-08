@@ -1,6 +1,7 @@
 package com.youngops;
 
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * integrity of data.
  */
 public class MerkleTree {
-  private List<String> transactions;
+  private final List<String> transactions;
 
   /**
    * Constructs a MerkleTree with the given list of transactions.
@@ -68,7 +69,7 @@ public class MerkleTree {
         hexString.append(hex);
       }
       return hexString.toString();
-    } catch (Exception e) {
+    } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException(e);
     }
   }

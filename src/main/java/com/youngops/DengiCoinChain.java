@@ -3,6 +3,7 @@ package com.youngops;
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +27,7 @@ public class DengiCoinChain {
       addBlocksToBlockchain(blockchainInstance, groupedTransactions);
       validateAndPrintBlockchain(blockchainInstance);
     } catch (Exception e) {
-      logger.error("An error occurred in DengiCoinChain: {}", e.getMessage());
-      e.printStackTrace();
+      logger.error("An error occurred in DengiCoinChain: {}", e.getMessage(), e);
     }
   }
 

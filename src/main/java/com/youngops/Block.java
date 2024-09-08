@@ -1,23 +1,26 @@
 package com.youngops;
 
+import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.youngops.exception.HashCalculationRuntimeException;
-import java.nio.ByteBuffer;
-import java.security.SecureRandom;
 
 /**
  * Represents a block in the blockchain.
  */
-public class Block {
+public final class Block {
   private static final Logger logger = LoggerFactory.getLogger(Block.class);
 
-  private int index;
-  private long timestamp;
-  private List<Transaction> transactions;
-  private String previousHash;
+  private final int index;
+  private final long timestamp;
+  private final List<Transaction> transactions;
+  private final String previousHash;
   private String hash;
   private static final SecureRandom secureRandom = new SecureRandom();
   private long nonce;
@@ -65,7 +68,7 @@ public class Block {
         sb.append(String.format("%02x", b));
       }
       return sb.toString();
-    } catch (Exception e) {
+    } catch (NoSuchAlgorithmException e) {
       String errorMessage = String.format(
           "Failed to calculate hash for block %d with previous hash %s, timestamp %d, and nonce %d",
           index, previousHash, timestamp, nonce);

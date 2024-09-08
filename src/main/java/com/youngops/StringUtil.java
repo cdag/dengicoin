@@ -1,8 +1,14 @@
 package com.youngops;
 
-import java.security.*;
-import java.util.Base64;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.util.Base64;
 
 public class StringUtil {
   private static final String ALGORITHM = "Ed25519";
@@ -51,7 +57,7 @@ public class StringUtil {
       signature.initSign(privateKey);
       signature.update(data.getBytes(StandardCharsets.UTF_8));
       return Base64.getEncoder().encodeToString(signature.sign());
-    } catch (Exception e) {
+    } catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
       throw new RuntimeException(e);
     }
   }
@@ -72,7 +78,7 @@ public class StringUtil {
       signature.update(data.getBytes(StandardCharsets.UTF_8));
       byte[] signatureBytes = Base64.getDecoder().decode(signatureStr);
       return signature.verify(signatureBytes);
-    } catch (Exception e) {
+    } catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
       throw new RuntimeException(e);
     }
   }

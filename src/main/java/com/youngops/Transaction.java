@@ -1,11 +1,19 @@
 package com.youngops;
 
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.security.*;
-import java.security.spec.X509EncodedKeySpec;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Base64;
 
 /**
  * Represents a transaction in a blockchain system.
@@ -18,10 +26,10 @@ public class Transaction {
    */
   public static final String SIGNING_ALGORITHM = "Ed25519";
 
-  private String sender;
-  private String recipient;
-  private int amount;
-  private String senderPublicKey;
+  private final String sender;
+  private final String recipient;
+  private final int amount;
+  private final String senderPublicKey;
   private String signature;
 
   /**
