@@ -1,6 +1,6 @@
 /**
  * This package contains the classes and interfaces for the Dengicoin project.
- * 
+ *
  * <p>
  * The main components of this package include:
  * <ul>
